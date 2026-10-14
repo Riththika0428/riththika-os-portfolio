@@ -18,6 +18,9 @@ export default function Avatar({ src, name, size = 64, className, glow = true })
     .join("");
 
   const dimension = { width: size, height: size };
+  // Photos served by the API live on another origin. `unoptimized` loads them directly,
+  // so next.config.mjs needs no image host settings.
+  const remote = /^https?:\/\//.test(src);
 
   if (!src || failed) {
     return (
@@ -49,6 +52,7 @@ export default function Avatar({ src, name, size = 64, className, glow = true })
         fill
         sizes={`${size}px`}
         className="object-cover"
+        unoptimized={remote}
         onError={() => setFailed(true)}
       />
     </div>

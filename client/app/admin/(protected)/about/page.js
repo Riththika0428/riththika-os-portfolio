@@ -7,6 +7,7 @@ import { useToast } from "@/components/admin/ToastProvider";
 import Field, { inputCls } from "@/components/admin/forms/Field";
 import TagInput from "@/components/admin/forms/TagInput";
 import RowControls from "@/components/admin/forms/RowControls";
+import ProfileImageUploader from "@/components/admin/about/ProfileImageUploader";
 
 const EMPTY = { introParagraphs: [""], profileFields: [], journey: [] };
 
@@ -143,7 +144,8 @@ export default function AdminAboutPage() {
         <p className="mt-1 text-sm text-slate-400">Edit the intro, profile details and journey shown on the public About page.</p>
         {fresh && <p className="mt-2 text-sm text-amber-300">Nothing has been saved yet. Fill this in and press Save to create it.</p>}
       </div>
-
+         <ProfileImageUploader />
+         
       {/* ---------- intro ---------- */}
       <section className={card} aria-labelledby="about-intro">
         <div>

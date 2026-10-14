@@ -5,7 +5,7 @@ export const SITE = {
   description:
     "The personal portfolio of Riththika Baskaran, presented as a simulated developer operating system.",
   url: "https://riththika-os.dev", // placeholder — update when deployed
-   avatar: "/profile.jpg",
+   avatar: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/profile-image`,
 };
 
 /**
