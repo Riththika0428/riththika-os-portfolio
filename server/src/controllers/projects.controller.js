@@ -2,6 +2,7 @@ import { Project } from "../models/Project.js";
 import { PROJECT_CATEGORIES, PROJECT_STATUSES } from "../config/constants.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
+import { imageUrlsOf, removeImagesIfUnused } from "../utils/projectImages.js";
 
 const OBJECT_ID = /^[a-f\d]{24}$/i;
 const assertValidId = (id) => {
@@ -55,6 +56,7 @@ export const updateProject = asyncHandler(async (req, res) => {
   assertValidId(req.params.id);
   const project = await Project.findById(req.params.id);
   if (!project) throw new ApiError(404, "Project not found");
+  const imagesBefore = imageUrlsOf(project); // cover + screenshots
   project.set(req.body);
   try {
     await project.save();
@@ -62,6 +64,10 @@ export const updateProject = asyncHandler(async (req, res) => {
     rethrowDuplicateSlug(err);
     throw err;
   }
+  // Covers or screenshots that were replaced or removed: delete the old uploaded files
+  // (a no-op for /public paths and external URLs, and for images another project still uses).
+  const imagesAfter = new Set(imageUrlsOf(project));
+  await removeImagesIfUnused(imagesBefore.filter((url) => !imagesAfter.has(url)));
   res.json({ success: true, data: { project } });
 });
 
@@ -70,7 +76,7 @@ export const patchProject = asyncHandler(async (req, res) => {
   const project = await Project.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
-     { returnDocument: "after", runValidators: true }
+    { new: true, runValidators: true }
   );
   if (!project) throw new ApiError(404, "Project not found");
   res.json({ success: true, data: { project } });
@@ -80,5 +86,6 @@ export const deleteProject = asyncHandler(async (req, res) => {
   assertValidId(req.params.id);
   const project = await Project.findByIdAndDelete(req.params.id);
   if (!project) throw new ApiError(404, "Project not found");
+  await removeImagesIfUnused(imageUrlsOf(project));
   res.json({ success: true, data: { id: project._id } });
 });

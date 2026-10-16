@@ -1,16 +1,19 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, LayoutTemplate } from "lucide-react";
 import GithubIcon from "@/components/ui/icons/GithubIcon";
 import TerminalWindow from "@/components/ui/TerminalWindow";
+import { resolveImage, isRemoteImage } from "@/lib/imageUrl";
 
 export default function ProjectCard({ project }) {
   const hasLiveUrl = Boolean(project.liveUrl);
   const cardRef = useRef(null);
+  const [imageFailed, setImageFailed] = useState(false);
+  const imageSrc = project.image ? resolveImage(project.image) : null;
 
   const handleMouseMove = (e) => {
     const card = cardRef.current;
@@ -61,14 +64,16 @@ export default function ProjectCard({ project }) {
         className={project.featured ? "border-purple/40" : ""}
       >
         <div className="relative h-32 border-b border-border flex items-center justify-center overflow-hidden">
-          {project.image ? (
+          {imageSrc && !imageFailed ? (
             <Image
-              src={project.image}
+              src={imageSrc}
               alt={`${project.title} preview`}
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
               className="object-cover"
-            />
+              unoptimized={isRemoteImage(imageSrc)}
+              onError={() => setImageFailed(true)}
+                />
           ) : (
             <>
               <div className="absolute inset-0 bg-gradient-to-br from-purple/20 via-blue/10 to-cyan/20" />

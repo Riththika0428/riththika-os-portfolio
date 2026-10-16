@@ -15,15 +15,18 @@ const httpUrl = z
   .refine((v) => v === "" || isHttpUrl(v), "must be a full http(s) URL")
   .default("");
 
+// A site path starts with one "/" ("//host/x" would point at another site).
+const isSitePath = (v) => v.startsWith("/") && !v.startsWith("//");
+
 const pathOrUrl = text(500).refine(
-  (v) => v.startsWith("/") || isHttpUrl(v),
+  (v) => isSitePath(v) || isHttpUrl(v),
   "must be a /public path or http(s) URL"
 );
 const imageRef = z
   .string()
   .trim()
   .max(500)
-  .refine((v) => v === "" || v.startsWith("/") || isHttpUrl(v), "must be a /public path or http(s) URL")
+  .refine((v) => v === "" || isSitePath(v) || isHttpUrl(v), "must be a /public path or http(s) URL")
   .default("")
   .transform((v) => v || null);
 

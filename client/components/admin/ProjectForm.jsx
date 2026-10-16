@@ -9,6 +9,8 @@ import Field, { inputCls } from "@/components/admin/forms/Field";
 import TagInput from "@/components/admin/forms/TagInput";
 import StringListEditor from "@/components/admin/forms/StringListEditor";
 import RowsEditor from "@/components/admin/forms/RowsEditor";
+import CoverImageField from "@/components/admin/forms/CoverImageField";
+import ScreenshotsField from "@/components/admin/forms/ScreenshotsField";
 import {
   EMPTY_PROJECT,
   PROJECT_CATEGORY_OPTIONS,
@@ -43,6 +45,8 @@ export default function ProjectForm({ projectId }) {
   const [loadError, setLoadError] = useState(null); // { message, notFound }
   const [attempt, setAttempt] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false); // a cover image is still uploading
+  const [shotsUploading, setShotsUploading] = useState(false); // screenshots are still uploading
   const [dirty, setDirty] = useState(false);
   const [slugTouched, setSlugTouched] = useState(false);
 
@@ -267,9 +271,9 @@ export default function ProjectForm({ projectId }) {
             <input id="liveUrl" type="text" inputMode="url" value={values.liveUrl} onChange={onInput("liveUrl")} placeholder="https://…" className={inputCls} />
           </Field>
         </div>
-        <Field label="Cover image" htmlFor="image" error={errors.image} hint="A path inside /public (e.g. /projects/chat.png) or a full URL. Optional.">
-          <input id="image" type="text" value={values.image} onChange={onInput("image")} className={inputCls} />
-        </Field>
+        <Field label="Cover image" htmlFor="cover-upload" hint="Shown on the project card. Optional.">
+           <CoverImageField value={values.image} onChange={setField("image")} error={errors.image} onBusyChange={setUploading} />
+            </Field>
       </Section>
 
       <Section title="Case study: the story" description="Each section is hidden on the public page when it is empty.">
@@ -360,11 +364,9 @@ export default function ProjectForm({ projectId }) {
         />
       </Section>
 
-      <Section title="Screenshots" description="Image URLs or paths inside /public. Direct uploads can be added later (Cloudinary, S3).">
-        <Field label="Screenshot URLs" error={errors.screenshots}>
-          <StringListEditor label="Screenshot" value={cs.screenshots} onChange={setCase("screenshots")} placeholder="https://… or /projects/shot.png" addLabel="Add screenshot" max={20} maxLength={500} />
-        </Field>
-      </Section>
+      <Section title="Screenshots" description="Shown in the UI Screenshots section of the case study, in this order.">
+             <ScreenshotsField value={cs.screenshots} onChange={setCase("screenshots")} error={errors.screenshots} onBusyChange={setShotsUploading} />
+       </Section>
 
       <div className="sticky bottom-0 -mx-4 flex items-center justify-between gap-3 border-t border-slate-800 bg-slate-950/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
         <Link
@@ -376,7 +378,7 @@ export default function ProjectForm({ projectId }) {
         >
           Cancel
         </Link>
-        <button type="submit" disabled={saving} className="rounded-md bg-indigo-600 px-5 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-60">
+        <button type="submit" disabled={saving || uploading || shotsUploading} className="rounded-md bg-indigo-600 px-5 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-60">
           {saving ? "Saving…" : isEdit ? "Save changes" : "Save project"}
         </button>
       </div>

@@ -1,5 +1,6 @@
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import CaseStudySection from "@/components/ui/CaseStudySection";
+import { resolveImage } from "@/lib/imageUrl";
 
 const hasItems = (arr) => Array.isArray(arr) && arr.length > 0;
 
@@ -49,15 +50,15 @@ export default function CaseStudyContent({ project }) {
       {hasItems(cs.screenshots) && (
         <CaseStudySection title="UI Screenshots" comment="VISUALS">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {cs.screenshots.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={src}
-                src={src}
-                alt={`${project.title} screenshot`}
-                className="rounded-control border border-border w-full h-auto"
-              />
-            ))}
+            {cs.screenshots.map((src, i) => (
+  // eslint-disable-next-line @next/next/no-img-element
+  <img
+    key={`${src}-${i}`}
+    src={resolveImage(src)}
+    alt={`${project.title} screenshot`}
+    className="rounded-control border border-border w-full h-auto"
+  />
+))}
           </div>
         </CaseStudySection>
       )}
