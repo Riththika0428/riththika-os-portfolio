@@ -20,3 +20,10 @@ export function formatDateTime(value) {
   if (!value || Number.isNaN(date.getTime())) return "";
   return new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" }).format(date);
 }
+
+// "YYYY-MM" that is earlier than the current month -> true. Empty or invalid -> false (nothing to expire).
+export function isExpired(month, now = new Date()) {
+  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month ?? "")) return false;
+  const current = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  return month < current;
+}

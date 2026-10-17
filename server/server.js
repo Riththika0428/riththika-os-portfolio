@@ -16,6 +16,7 @@ import { notFound, errorHandler } from "./src/middleware/errorHandler.js";
 import resumeRoutes from "./src/routes/resume.routes.js";
 import profileImageRoutes from "./src/routes/profileImage.routes.js";
 import projectImageRoutes from "./src/routes/projectImage.routes.js";
+import certificationRoutes from "./src/routes/certification.routes.js";
 
 const { PORT = 5000, CLIENT_URL, ADMIN_AUTH_SECRET, NODE_ENV } = process.env;
 
@@ -49,7 +50,7 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/profile-image", profileImageRoutes);
 app.use("/api/project-images", projectImageRoutes);
-
+app.use("/api/certifications", certificationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -37,3 +37,4 @@ export function normalizeProject(p) {
     },
   };
 }
+export const getCertifications = () => apiGet("/certifications");
