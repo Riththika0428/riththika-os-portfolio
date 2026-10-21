@@ -1,5 +1,6 @@
 import { ProjectImage } from "../models/ProjectImage.js";
 import { Project } from "../models/Project.js";
+import { HomeContent } from "../models/HomeContent.js";
 
 export const IMAGE_URL_PREFIX = "/api/project-images/";
 const UPLOADED = /^\/api\/project-images\/([a-f\d]{24})$/i;

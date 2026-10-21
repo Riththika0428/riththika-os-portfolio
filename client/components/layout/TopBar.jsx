@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { ROUTES, SITE } from "@/lib/constants/site";
-import StatusBadge from "@/components/ui/StatusBadge";
 
 function currentLabel(pathname) {
   const match = ROUTES.find((r) => r.path === pathname);
@@ -29,13 +28,6 @@ export default function TopBar({ onMenuClick }) {
           <span className="text-text-muted"> / </span>
           <span className="text-text-heading">{currentLabel(pathname)}</span>
         </span>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <kbd className="hidden sm:inline-flex bg-chip2 text-text-body text-[11px] tracking-[0.66px] px-2 py-1 rounded-chip">
-          ⌘K
-        </kbd>
-        <StatusBadge label="Online" color="mint" />
       </div>
     </header>
   );

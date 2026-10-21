@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Certification } from "../models/Certification.js";
 
 /**
  * Singleton: the profile photo. Stored in MongoDB (not on disk) so it survives

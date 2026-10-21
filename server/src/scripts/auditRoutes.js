@@ -14,6 +14,7 @@ export const PUBLIC = new Set([
   "GET /api/skills",
   "GET /api/education",
   "GET /api/about",
+  "GET /api/home",
   "GET /api/resume",
   "GET /api/profile-image",
   "GET /api/project-images/:id",

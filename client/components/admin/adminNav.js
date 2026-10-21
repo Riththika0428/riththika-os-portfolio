@@ -9,4 +9,5 @@ export const ADMIN_NAV = [
   { href: "/admin/about", label: "About", icon: User },
   { href: "/admin/resume", label: "Resume", icon: FileText },
   { href: "/admin/messages", label: "Messages", icon: Mail },
+  { href: "/admin/home", label: "Home", icon: LayoutDashboard }
 ];

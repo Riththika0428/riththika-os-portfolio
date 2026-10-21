@@ -16,6 +16,7 @@ import projectImageRoutes from "./routes/projectImage.routes.js";
 import certificationRoutes from "./routes/certification.routes.js";
 import { csrfGuard } from "./middleware/csrfGuard.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
+import homeRoutes from "./routes/home.routes.js";
 
 // One list for both the app and `npm run audit`, so the audit always checks what really runs.
 export const API_ROUTES = [
@@ -30,6 +31,7 @@ export const API_ROUTES = [
   ["/api/profile-image", profileImageRoutes],
   ["/api/project-images", projectImageRoutes],
   ["/api/certifications", certificationRoutes],
+  ["/api/home", homeRoutes],
 ];
 
 export function createApp({ allowedOrigins, isProd = false, logRequests = false }) {

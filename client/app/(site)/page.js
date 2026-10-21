@@ -1,19 +1,25 @@
 import HeroTerminal from "@/components/sections/home/HeroTerminal";
-import LearningPanel from "@/components/sections/home/LearningPanel";
+import HeroImagePanel from "@/components/sections/home/HeroImagePanel";
 import QuickSkills from "@/components/sections/home/QuickSkills";
 import BottomTerminal from "@/components/sections/home/BottomTerminal";
+import { getHome } from "@/lib/content";
 
-export default function HomePage() {
+export default async function HomePage() {
+  // If the API is down the Home page still shows, using the built-in text and no image.
+  const { data: home } = await getHome();
+
   return (
     <div className="p-6 lg:p-10 flex flex-col gap-6 max-w-[1280px] mx-auto">
-      {/* Hero + Currently Learning */}
+      {/* Hero (+ 3D image when one is set) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-8">
-          <HeroTerminal />
+        <div className={home?.heroImage ? "lg:col-span-8" : "lg:col-span-12"}>
+          <HeroTerminal name={home?.name} role={home?.role} tagline={home?.tagline} />
         </div>
-        <div className="lg:col-span-4">
-          <LearningPanel />
-        </div>
+        {home?.heroImage && (
+          <div className="lg:col-span-4">
+            <HeroImagePanel src={home.heroImage} alt={home.heroImageAlt} />
+          </div>
+        )}
       </div>
 
       {/* Quick skill cards */}

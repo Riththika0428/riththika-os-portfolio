@@ -2,7 +2,12 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import TerminalWindow from "@/components/ui/TerminalWindow";
 
-export default function HeroTerminal() {
+// The text comes from the Home page settings in the admin panel; the defaults match the old design.
+export default function HeroTerminal({
+  name = "Riththika",
+  role = "Full Stack Developer",
+  tagline = "I build clean, responsive and user-focused web applications that solve real-world problems.",
+}) {
   return (
     <TerminalWindow title="welcome.sh" shadow="terminal" bodyClassName="p-10 lg:p-12">
       <div className="flex flex-col gap-8">
@@ -16,15 +21,10 @@ export default function HeroTerminal() {
 
         <div className="flex flex-col gap-4">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-heading leading-tight">
-            Hi, I&apos;m <span className="text-gradient-primary">Riththika</span>
+            Hi, I&apos;m <span className="text-gradient-primary">{name}</span>
           </h1>
-          <p className="text-lg md:text-xl text-text-heading font-medium">
-            Full Stack Developer
-          </p>
-          <p className="text-text-body text-base max-w-xl leading-relaxed">
-            I build clean, responsive and user-focused web applications that solve
-            real-world problems.
-          </p>
+          <p className="text-lg md:text-xl text-text-heading font-medium">{role}</p>
+          <p className="text-text-body text-base max-w-xl leading-relaxed">{tagline}</p>
         </div>
 
         <div className="flex flex-wrap gap-3 pt-3">
