@@ -10,7 +10,9 @@
     "reset-admin": "node src/scripts/resetAdmin.js",
     "create-admin": "node src/scripts/createAdmin.js",
     "set-db": "node src/scripts/setDatabase.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "audit": "node src/scripts/auditRoutes.js"
+
   },
   "keywords": [],
   "author": "",

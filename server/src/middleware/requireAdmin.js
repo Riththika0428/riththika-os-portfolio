@@ -2,7 +2,7 @@ import Admin from "../models/Admin.js";
 import { AppError, asyncHandler } from "../utils/http.js";
 import { COOKIE_NAME, verifyAdminToken } from "../utils/authCookie.js";
 
-export const requireAdmin = asyncHandler(async (req, _res, next) => {
+export const requireAdmin = Object.assign(asyncHandler(async (req, _res, next) => {
   const token = req.cookies?.[COOKIE_NAME];
   if (!token) throw new AppError("Authentication required", 401);
 
@@ -18,4 +18,4 @@ export const requireAdmin = asyncHandler(async (req, _res, next) => {
 
   req.admin = admin;
   next();
-});
+}), { guard: "admin" }); // `guard` lets `npm run audit` see which routes are protected
