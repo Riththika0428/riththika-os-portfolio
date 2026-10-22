@@ -42,8 +42,8 @@ export default function Sidebar({ className }) {
         {/* Profile */}
         <div className="bg-elevated rounded-panel flex flex-col items-center gap-2 p-4 w-full">
           <div className="relative">
-            <Avatar src={SITE.avatar} name={SITE.author} size={64} className="text-xl" />
-            <span className="absolute bottom-0 right-0 size-3.5 rounded-full bg-elevated flex items-center justify-center">
+           <Avatar src={SITE.avatar} name={SITE.author} size={64} className="text-xl" zoomable />
+           <span className="absolute bottom-0 right-0 size-3.5 rounded-full bg-elevated flex items-center justify-center pointer-events-none">
               <span className="size-2.5 rounded-full bg-mint" />
             </span>
           </div>

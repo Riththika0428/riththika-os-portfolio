@@ -6,7 +6,7 @@ import { SITE } from "@/lib/constants/site";
 export default function AboutProfileCard() {
   return (
     <GlowCard className="p-6 flex flex-col items-center text-center gap-3 h-full justify-center">
-      <Avatar src={SITE.avatar} name={SITE.author} size={96} className="text-2xl" />
+      <Avatar src={SITE.avatar} name={SITE.author} size={96} className="text-2xl" zoomable />
       <div className="flex flex-col gap-0.5">
         <span className="text-text-heading text-lg font-semibold">{SITE.author}</span>
         <span className="text-text-body text-sm">Full Stack Developer</span>
