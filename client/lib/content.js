@@ -7,6 +7,7 @@ export const getEducation = () => apiGet("/education");
 export const getAbout = () => apiGet("/about");
 export const getResume = () => apiGet("/resume");
 export const getHome = () => apiGet("/home");
+export const getSiteSettings = () => apiGet("/site-settings");
 
 // Projects created in the dashboard may have no caseStudy at all.
 // Fill safe defaults so components never crash on undefined.

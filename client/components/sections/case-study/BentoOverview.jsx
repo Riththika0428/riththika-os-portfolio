@@ -9,14 +9,17 @@ const SECTIONS = [
 
 const TITLES = { problem: "The Problem", goal: "The Goal", solution: "The Solution" };
 
+const COLUMNS = { 1: "md:grid-cols-1", 2: "md:grid-cols-2", 3: "md:grid-cols-3" };
+
 export default function BentoOverview({ project }) {
-  const cs = project.caseStudy;
-  const visible = SECTIONS.filter((section) => cs[section.key]);
-  if (visible.length === 0) return null;
+  const cs = project.caseStudy ?? {};
+  // Only the cards that have text; a project with none of them shows no row at all.
+  const filled = SECTIONS.filter((section) => cs[section.key]?.trim());
+  if (filled.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-     {visible.map((section) => {
+    <div className={`grid grid-cols-1 ${COLUMNS[filled.length]} gap-5`}>
+      {filled.map((section) => {
         const Icon = section.icon;
         return (
           <GlowCard key={section.key} className="p-6 flex flex-col gap-4">

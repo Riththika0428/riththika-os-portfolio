@@ -94,9 +94,11 @@ export default function ProjectCard({ project }) {
             <h3 className="text-text-heading text-base font-semibold leading-tight">
               {project.title}
             </h3>
-            <span className="text-text-muted text-[11px] font-mono shrink-0 pt-0.5">
-              {project.year}
-            </span>
+            {project.year && (
+  <span className="text-text-muted text-[11px] font-mono shrink-0 pt-0.5">
+    {project.year}
+  </span>
+)}
           </div>
 
           <p className="text-text-body text-[13px] leading-relaxed line-clamp-2">
@@ -122,16 +124,17 @@ export default function ProjectCard({ project }) {
               Case Study
               <ArrowUpRight className="size-3.5" strokeWidth={2} />
             </Link>
-<a
-            
-              href={project.githubUrl || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 bg-transparent border border-border text-text-heading text-[13px] font-medium px-3 py-1.5 rounded-control hover:bg-elevated transition-colors"
-            >
-              <GithubIcon className="size-3.5" />
-              GitHub
-            </a>
+            {project.githubUrl && (
+  <a
+    href={project.githubUrl}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-flex items-center gap-1 bg-transparent border border-border text-text-heading text-[13px] font-medium px-3 py-1.5 rounded-control hover:bg-elevated transition-colors"
+  >
+    <GithubIcon className="size-3.5" />
+    GitHub
+  </a>
+)}
 
             <a
               href={hasLiveUrl ? project.liveUrl : undefined}

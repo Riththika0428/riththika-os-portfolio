@@ -8,7 +8,7 @@ import Sidebar from "@/components/layout/Sidebar";
  * desktop by construction — only the drawer chrome (overlay, close
  * button, slide-in) lives here.
  */
-export default function MobileNav({ open, onClose }) {
+export default function MobileNav({ open, onClose, settings }) {
   return (
     <div
       className={`fixed inset-0 z-40 lg:hidden transition-opacity ${
@@ -25,7 +25,7 @@ export default function MobileNav({ open, onClose }) {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <Sidebar className="h-full" />
+        <Sidebar className="h-full" /> becomes <Sidebar settings={settings} className="h-full" />
         <button
           type="button"
           onClick={onClose}

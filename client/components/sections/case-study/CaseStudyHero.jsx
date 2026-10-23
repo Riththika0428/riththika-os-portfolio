@@ -1,5 +1,3 @@
-//import Link from "next/link";
-//import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import GithubIcon from "@/components/ui/icons/GithubIcon";
@@ -31,7 +29,7 @@ export default function CaseStudyHero({ project }) {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {project.stack.map((tech) => (
+        {(project.stack ?? []).map((tech) => (
           <span
             key={tech}
             className="text-[11px] font-mono bg-chip text-text-muted px-2 py-1 rounded-chip"
@@ -42,25 +40,17 @@ export default function CaseStudyHero({ project }) {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        {/* <a
-          href={project.githubUrl || "#"}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-purple to-blue text-white text-sm font-medium px-5 py-2.5 rounded-control shadow-glow-purple hover:opacity-90 transition-opacity"
-        >
-          <Github className="size-4" strokeWidth={2} />
-          GitHub
-        </a> */}
-
-<a
-  href={project.githubUrl || "#"}
-  target="_blank"
-  rel="noreferrer"
-  className="inline-flex items-center gap-2 bg-gradient-to-r from-purple to-blue text-white text-sm font-medium px-5 py-2.5 rounded-control shadow-glow-purple hover:opacity-90 transition-opacity"
->
-  <GithubIcon className="size-4" />
-  GitHub
-</a>
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple to-blue text-white text-sm font-medium px-5 py-2.5 rounded-control shadow-glow-purple hover:opacity-90 transition-opacity"
+          >
+            <GithubIcon className="size-4" />
+            GitHub
+          </a>
+        )}
         <a
           href={hasLiveUrl ? project.liveUrl : undefined}
           target={hasLiveUrl ? "_blank" : undefined}

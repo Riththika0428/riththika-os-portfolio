@@ -3,17 +3,23 @@ import GithubIcon from "@/components/ui/icons/GithubIcon";
 import LinkedinIcon from "@/components/ui/icons/LinkedinIcon";
 import GlowCard from "@/components/ui/GlowCard";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { CONTACT_METHODS } from "@/lib/data/contact";
+import { DEFAULT_SITE_SETTINGS, contactMethods } from "@/lib/siteSettings";
 
 const ICONS = { Mail, Phone, MapPin, Github: GithubIcon, Linkedin: LinkedinIcon };
 
-export default function ContactInfoPanel() {
+export default function ContactInfoPanel({ settings = DEFAULT_SITE_SETTINGS }) {
+  const methods = contactMethods(settings);
+
   return (
     <GlowCard className="p-6 flex flex-col gap-5 h-full">
       <SectionHeader title="Contact Info" comment="DIRECT_CHANNELS" />
 
+      {methods.length === 0 && (
+        <p className="text-text-body text-sm">Contact details are coming soon. For now, please use the form.</p>
+      )}
+
       <div className="flex flex-col gap-2">
-        {CONTACT_METHODS.map((method) => {
+        {methods.map((method) => {
           const Icon = ICONS[method.icon];
           const content = (
             <>

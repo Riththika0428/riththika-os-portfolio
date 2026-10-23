@@ -1,4 +1,4 @@
-import { LayoutDashboard, Folder, Wrench, GraduationCap, Award, User, FileText, Mail } from "lucide-react";
+import { LayoutDashboard, Folder, Wrench, GraduationCap, Award, User, FileText, Mail, Settings } from "lucide-react";
 
 export const ADMIN_NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -9,5 +9,6 @@ export const ADMIN_NAV = [
   { href: "/admin/about", label: "About", icon: User },
   { href: "/admin/resume", label: "Resume", icon: FileText },
   { href: "/admin/messages", label: "Messages", icon: Mail },
+  { href: "/admin/settings", label: "Contact & profile", icon: Settings },
   { href: "/admin/home", label: "Home", icon: LayoutDashboard }
 ];

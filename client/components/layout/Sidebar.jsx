@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import GithubIcon from "@/components/ui/icons/GithubIcon";
 import LinkedinIcon from "@/components/ui/icons/LinkedinIcon";
-import { ROUTES, SOCIAL_LINKS, SITE } from "@/lib/constants/site";
+import { ROUTES, SITE } from "@/lib/constants/site";
+import { DEFAULT_SITE_SETTINGS, socialLinks } from "@/lib/siteSettings";
 import StatusBadge from "@/components/ui/StatusBadge";
 import Avatar from "@/components/ui/Avatar";
 
@@ -19,8 +20,9 @@ const SOCIAL_ICONS = {
   email: Mail,
 };
 
-export default function Sidebar({ className }) {
+export default function Sidebar({ className, settings = DEFAULT_SITE_SETTINGS }) {
   const pathname = usePathname();
+  const socials = socialLinks(settings);
 
   return (
     <aside
@@ -42,8 +44,8 @@ export default function Sidebar({ className }) {
         {/* Profile */}
         <div className="bg-elevated rounded-panel flex flex-col items-center gap-2 p-4 w-full">
           <div className="relative">
-           <Avatar src={SITE.avatar} name={SITE.author} size={64} className="text-xl" zoomable />
-           <span className="absolute bottom-0 right-0 size-3.5 rounded-full bg-elevated flex items-center justify-center pointer-events-none">
+            <Avatar src={SITE.avatar} name={SITE.author} size={64} className="text-xl" zoomable />
+            <span className="absolute bottom-0 right-0 size-3.5 rounded-full bg-elevated flex items-center justify-center pointer-events-none">
               <span className="size-2.5 rounded-full bg-mint" />
             </span>
           </div>
@@ -51,17 +53,21 @@ export default function Sidebar({ className }) {
             <span className="text-text-heading text-lg font-semibold leading-[26px]">
               {SITE.author}
             </span>
-            <span className="text-text-body text-[13px] leading-5">Full Stack Developer</span>
+            <span className="text-text-body text-[13px] leading-5">{settings.role}</span>
           </div>
-          <span className="bg-chip2 text-text-body text-[11px] tracking-[0.66px] px-2 py-1 rounded-chip">
-            BIT Undergraduate
-          </span>
-          <div className="bg-chip flex items-center justify-center gap-1 px-2 py-1 rounded-control w-full">
-            <span className="size-1.5 rounded-full bg-mint" />
-            <span className="text-mint-pale text-[11px] tracking-tight text-center">
-              Available for opportunities
+          {settings.badge && (
+            <span className="bg-chip2 text-text-body text-[11px] tracking-[0.66px] px-2 py-1 rounded-chip">
+              {settings.badge}
             </span>
-          </div>
+          )}
+          {settings.available && settings.availabilityText && (
+            <div className="bg-chip flex items-center justify-center gap-1 px-2 py-1 rounded-control w-full">
+              <span className="size-1.5 rounded-full bg-mint" />
+              <span className="text-mint-pale text-[11px] tracking-tight text-center">
+                {settings.availabilityText}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Nav — active item gets a left accent bar + a shell-style caret */}
@@ -114,23 +120,25 @@ export default function Sidebar({ className }) {
 
       {/* Social + system footer — real brand icons */}
       <div className="flex flex-col gap-2 w-full pt-2">
-        <div className="bg-elevated rounded-control flex items-center justify-around py-2 w-full">
-          {SOCIAL_LINKS.map((social) => {
-            const Icon = SOCIAL_ICONS[social.key];
-            return (
-              <a
-                key={social.key}
-                href={social.href}
-                target="_blank"
-                rel="noreferrer"
-                className="p-1.5 text-text-body hover:text-text-bright transition-colors"
-                aria-label={social.key}
-              >
-                <Icon className="size-4" />
-              </a>
-            );
-          })}
-        </div>
+        {socials.length > 0 && (
+          <div className="bg-elevated rounded-control flex items-center justify-around py-2 w-full">
+            {socials.map((social) => {
+              const Icon = SOCIAL_ICONS[social.key];
+              return (
+                <a
+                  key={social.key}
+                  href={social.href}
+                  target={social.key === "email" ? undefined : "_blank"}
+                  rel="noreferrer"
+                  className="p-1.5 text-text-body hover:text-text-bright transition-colors"
+                  aria-label={social.key}
+                >
+                  <Icon className="size-4" />
+                </a>
+              );
+            })}
+          </div>
+        )}
         <div className="flex flex-col gap-1 px-1">
           <div className="flex items-center justify-between">
             <span className="text-text-muted text-[11px] tracking-[0.66px]">System v2.4.0</span>
