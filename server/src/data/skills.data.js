@@ -44,11 +44,3 @@ export const SKILL_CATEGORIES = [
  * (rendered as filled/empty dots), chosen by Riththi herself and meant
  * to be edited directly by her, not treated as an objective figure.
  */
-export const CORE_PROFICIENCIES = [
-  { key: "javascript", label: "JavaScript", level: 4 },
-  { key: "react", label: "React", level: 4 },
-  { key: "nextjs", label: "Next.js", level: 3 },
-  { key: "nodejs", label: "Node.js", level: 4 },
-  { key: "express", label: "Express.js", level: 3 },
-  { key: "mongodb", label: "MongoDB", level: 3 },
-];

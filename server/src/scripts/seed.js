@@ -22,7 +22,6 @@ import { connectDB } from "../config/db.js";
 import { Project } from "../models/Project.js";
 import { EducationEntry } from "../models/EducationEntry.js";
 import { SkillCategory } from "../models/SkillCategory.js";
-import { Proficiency } from "../models/Proficiency.js";
 import { AboutContent } from "../models/AboutContent.js";
 
 import { projects } from "../data/projects.data.js";

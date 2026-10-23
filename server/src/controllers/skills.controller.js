@@ -1,19 +1,11 @@
 import { SkillCategory } from "../models/SkillCategory.js";
-import { Proficiency } from "../models/Proficiency.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 
-/* ---------- public ---------- */
-
 export const getSkills = asyncHandler(async (_req, res) => {
-  const [categories, coreProficiencies] = await Promise.all([
-    SkillCategory.find().sort({ order: 1, createdAt: 1 }),
-    Proficiency.find().sort({ order: 1, createdAt: 1 }),
-  ]);
-  res.json({ success: true, data: { categories, coreProficiencies } });
+  const categories = await SkillCategory.find().sort({ order: 1, createdAt: 1 });
+  res.json({ success: true, data: { categories } });
 });
-
-/* ---------- admin (routes are guarded by requireAdmin) ---------- */
 
 const OBJECT_ID = /^[a-f\d]{24}$/i;
 const assertValidId = (id) => {
@@ -22,7 +14,6 @@ const assertValidId = (id) => {
 const slug = (s) =>
   s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "item";
 
-// Same CRUD for both models; keySource is the field the unique `key` is built from.
 function adminHandlers(Model, label, keySource) {
   const rethrowDuplicate = (err) => {
     if (err?.code === 11000) throw new ApiError(409, `A ${label} with a very similar name already exists`);
@@ -45,7 +36,7 @@ function adminHandlers(Model, label, keySource) {
       assertValidId(req.params.id);
       const item = await Model.findById(req.params.id);
       if (!item) throw new ApiError(404, `${label} not found`);
-      item.set(req.body); // `key` is never in the body, so it stays stable
+      item.set(req.body);
       await item.save();
       res.json({ success: true, data: { item } });
     }),
@@ -67,4 +58,3 @@ function adminHandlers(Model, label, keySource) {
 }
 
 export const categoryHandlers = adminHandlers(SkillCategory, "category", "title");
-export const proficiencyHandlers = adminHandlers(Proficiency, "skill", "label");
