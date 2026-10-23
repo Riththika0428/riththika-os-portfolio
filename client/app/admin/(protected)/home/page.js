@@ -5,6 +5,7 @@ import { adminFetch } from "@/lib/adminApi";
 import { useToast } from "@/components/admin/ToastProvider";
 import Field, { inputCls } from "@/components/admin/forms/Field";
 import CoverImageField from "@/components/admin/forms/CoverImageField";
+import HighlightsEditor from "@/components/admin/home/HighlightsEditor";
 
 const card = "rounded-xl border border-slate-800 bg-slate-900/50 p-5 flex flex-col gap-4";
 const toForm = (d) => ({
@@ -13,13 +14,19 @@ const toForm = (d) => ({
   tagline: d?.tagline ?? "",
   heroImage: d?.heroImage ?? "",
   heroImageAlt: d?.heroImageAlt ?? "",
+  closingMessage: d?.closingMessage ?? "Ready to build.",
+  highlights: (d?.highlights ?? []).map((h) => ({ title: h.title ?? "", description: h.description ?? "", icon: h.icon ?? "Sparkles", href: h.href ?? "" })),
 });
+const isSitePath = (v) => v.startsWith("/") && !v.startsWith("//");
+const isHttp = (v) => /^https?:\/\/\S+$/i.test(v);
 const toPayload = (f) => ({
   name: f.name.trim(),
   role: f.role.trim(),
   tagline: f.tagline.trim(),
   heroImage: f.heroImage.trim(),
   heroImageAlt: f.heroImageAlt.trim(),
+  closingMessage: f.closingMessage.trim(),
+  highlights: f.highlights.map((h) => ({ title: h.title.trim(), description: h.description.trim(), icon: h.icon, href: h.href.trim() })),
 });
 
 export default function AdminHomePage() {
@@ -64,6 +71,11 @@ export default function AdminHomePage() {
     if (!payload.name) found.name = "Name is required.";
     if (!payload.role) found.role = "Role is required.";
     if (!payload.tagline) found.tagline = "Tagline is required.";
+    if (!payload.closingMessage) found.closingMessage = "Closing message is required.";
+    payload.highlights.forEach((h, i) => {
+      if (!h.title) found[`${i}.title`] = "Title is required.";
+      if (!isSitePath(h.href) && !isHttp(h.href)) found[`${i}.href`] = "Use a site path like /projects or a full https:// link.";
+    });
     setErrors(found);
     if (Object.keys(found).length) return;
 
@@ -125,6 +137,19 @@ export default function AdminHomePage() {
         </Field>
         <Field label="Image description" htmlFor="home-alt" hint="Optional. Read aloud by screen readers.">
           <input id="home-alt" type="text" maxLength={160} value={form.heroImageAlt} onChange={set("heroImageAlt")} className={inputCls} />
+        </Field>
+      </section>
+
+      <section className={card} aria-labelledby="home-cards">
+        <h2 id="home-cards" className="text-lg font-medium">Highlight cards</h2>
+        <p className="text-sm text-slate-400">The small cards under the hero (up to 8). Remove them all to hide the row.</p>
+        <HighlightsEditor value={form.highlights} onChange={(highlights) => setForm((f) => ({ ...f, highlights }))} errors={errors} />
+      </section>
+
+      <section className={card} aria-labelledby="home-terminal">
+        <h2 id="home-terminal" className="text-lg font-medium">Closing terminal</h2>
+        <Field label="Closing line" htmlFor="home-closing" required error={errors.closingMessage} hint="The message printed at the bottom of the Home page.">
+          <input id="home-closing" type="text" maxLength={120} value={form.closingMessage} onChange={set("closingMessage")} className={inputCls} />
         </Field>
       </section>
 

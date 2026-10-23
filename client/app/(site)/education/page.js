@@ -4,7 +4,7 @@ import EducationTimeline from "@/components/sections/education/EducationTimeline
 import CertificationsPanel from "@/components/sections/education/CertificationsPanel";
 import ContinuousLearning from "@/components/sections/education/ContinuousLearning";
 import DataError from "@/components/ui/DataError";
-import { getEducation, getCertifications } from "@/lib/content";
+import { getEducation, getCertifications, getLearning } from "@/lib/content";
 
 export const metadata = {
   title: "Education · Riththika OS",
@@ -12,7 +12,7 @@ export const metadata = {
 };
 
 export default async function EducationPage() {
-  const [education, certifications] = await Promise.all([getEducation(), getCertifications()]);
+  const [education, certifications, learning] = await Promise.all([getEducation(), getCertifications(), getLearning()]);
 
   return (
     <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
@@ -37,7 +37,7 @@ export default async function EducationPage() {
             <CertificationsPanel certifications={certifications.data.certifications} />
           )}
 
-          <ContinuousLearning />
+          <ContinuousLearning intro={learning.data?.intro} tracks={learning.data?.tracks} />
         </div>
       </TerminalWindow>
     </div>

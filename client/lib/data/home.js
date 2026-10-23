@@ -39,3 +39,8 @@ export const QUICK_SKILLS = [
     href: "/projects",
   },
 ];
+
+// Text shown until the admin saves their own (Admin → Home / Learning).
+export const CLOSING_MESSAGE = "Ready to build.";
+export const LEARNING_INTRO =
+  "Development skills are continuously improved through personal projects, documentation, coding practice and real-world development.";

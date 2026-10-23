@@ -1,9 +1,10 @@
 import { Infinity as InfinityIcon } from "lucide-react";
 import GlowCard from "@/components/ui/GlowCard";
 import SkillLevelCard from "@/components/ui/SkillLevelCard";
-import { LEARNING_ITEMS } from "@/lib/data/home";
+import { LEARNING_ITEMS, LEARNING_INTRO } from "@/lib/data/home";
 
-export default function ContinuousLearning() {
+// `intro` and `tracks` come from Admin → Learning. Without them (API down) the built-in text shows.
+export default function ContinuousLearning({ intro = LEARNING_INTRO, tracks = LEARNING_ITEMS }) {
   return (
     <GlowCard className="p-6 flex flex-col gap-5 border-purple/30">
       <div className="flex items-center gap-3">
@@ -19,20 +20,21 @@ export default function ContinuousLearning() {
       </div>
 
       <p className="text-text-body text-sm leading-relaxed italic border-l-2 border-border pl-4">
-        Development skills are continuously improved through personal projects,
-        documentation, coding practice and real-world development.
+        {intro}
       </p>
 
-      <div className="flex flex-col gap-2.5">
-        <span className="text-text-muted text-[11px] font-mono tracking-[0.5px] uppercase">
-          Active Learning Tracks
-        </span>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {LEARNING_ITEMS.map((item) => (
-            <SkillLevelCard key={item.key} skill={item} />
-          ))}
+      {tracks.length > 0 && (
+        <div className="flex flex-col gap-2.5">
+          <span className="text-text-muted text-[11px] font-mono tracking-[0.5px] uppercase">
+            Active Learning Tracks
+          </span>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {tracks.map((item, index) => (
+              <SkillLevelCard key={`${item.label}-${index}`} skill={item} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </GlowCard>
   );
 }

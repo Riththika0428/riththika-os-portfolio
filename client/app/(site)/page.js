@@ -22,11 +22,8 @@ export default async function HomePage() {
         )}
       </div>
 
-      {/* Quick skill cards */}
-      <QuickSkills />
-
-      {/* Bottom terminal */}
-      <BottomTerminal />
+      <QuickSkills items={home?.highlights} />
+      <BottomTerminal message={home?.closingMessage} />
     </div>
   );
 }

@@ -8,6 +8,14 @@ const pick = (doc) => ({
   tagline: doc?.tagline ?? HOME_DEFAULTS.tagline,
   heroImage: doc?.heroImage ?? HOME_DEFAULTS.heroImage,
   heroImageAlt: doc?.heroImageAlt ?? HOME_DEFAULTS.heroImageAlt,
+  closingMessage: doc?.closingMessage ?? HOME_DEFAULTS.closingMessage,
+  // Not saved yet -> the built-in cards; saved as an empty list -> no cards.
+  highlights: (doc?.highlights ?? HOME_DEFAULTS.highlights).map((h) => ({
+    title: h.title,
+    description: h.description ?? "",
+    icon: h.icon ?? "Sparkles",
+    href: h.href ?? "/skills",
+  })),
 });
 
 /* ---------- public ---------- */

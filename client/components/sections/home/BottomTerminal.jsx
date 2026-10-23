@@ -1,10 +1,10 @@
 import TerminalWindow from "@/components/ui/TerminalWindow";
-//import TerminalWindow from "@/components/ui/TerminalWindow";
 import TerminalCursor from "@/components/ui/TerminalCursor";
+import { CLOSING_MESSAGE } from "@/lib/data/home";
 
 const DIRECTORIES = ["about/", "projects/", "skills/", "education/", "contact/"];
 
-export default function BottomTerminal() {
+export default function BottomTerminal({ message = CLOSING_MESSAGE }) {
   return (
     <TerminalWindow
       title="›_ Terminal"
@@ -27,9 +27,9 @@ export default function BottomTerminal() {
         <p className="pt-2">
           <span className="text-cyan">riththika@portfolio</span>
           <span className="text-text-muted">:~$</span>{" "}
-          <span className="text-text-body">echo &quot;Ready to build.&quot;</span>
+          <span className="text-text-body">echo &quot;{message}&quot;</span>
         </p>
-        <p className="text-mint">Ready to build.</p>
+        <p className="text-mint">{message}</p>
         <p className="flex items-center gap-1 pt-1">
           <span className="text-cyan">riththika@portfolio</span>
           <span className="text-text-muted">:~$</span>

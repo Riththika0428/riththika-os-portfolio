@@ -18,6 +18,7 @@ import { csrfGuard } from "./middleware/csrfGuard.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 import homeRoutes from "./routes/home.routes.js";
 import siteSettingsRoutes from "./routes/siteSettings.routes.js";
+import learningRoutes from "./routes/learning.routes.js";
 
 // One list for both the app and `npm run audit`, so the audit always checks what really runs.
 export const API_ROUTES = [
@@ -34,6 +35,7 @@ export const API_ROUTES = [
   ["/api/certifications", certificationRoutes],
   ["/api/home", homeRoutes],
   ["/api/site-settings", siteSettingsRoutes],
+  ["/api/learning", learningRoutes],
 ];
 
 export function createApp({ allowedOrigins, isProd = false, logRequests = false }) {
