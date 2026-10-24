@@ -25,7 +25,8 @@ export const PUBLIC = new Set([
   "GET /api/learning",
 ]);
 // Write routes that take no body, or validate it inside the controller.
-const NO_VALIDATOR_NEEDED = new Set(["POST /api/contact/read-all", "POST /api/auth/login", "POST /api/auth/logout", "PUT /api/profile-image", "POST /api/project-images"]); // images are checked by multer limits + byte signature
+// images are checked by multer limits + byte signature
+const NO_VALIDATOR_NEEDED = new Set(["POST /api/contact/read-all", "POST /api/auth/login", "POST /api/auth/logout", "POST /api/auth/logout-all", "PUT /api/profile-image", "POST /api/project-images"]);
 
 export function collectRoutes(table) {
   const rows = [];

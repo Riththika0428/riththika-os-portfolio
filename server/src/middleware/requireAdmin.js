@@ -15,6 +15,8 @@ export const requireAdmin = Object.assign(asyncHandler(async (req, _res, next) =
 
   const admin = await Admin.findById(payload.sub);
   if (!admin) throw new AppError("Authentication required", 401);
+  // Tokens from before this feature have no `tv`, which counts as version 0.
+  if ((payload.tv ?? 0) !== (admin.tokenVersion ?? 0)) throw new AppError("Authentication required", 401);
 
   req.admin = admin;
   next();

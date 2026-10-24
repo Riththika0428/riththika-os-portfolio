@@ -13,8 +13,8 @@ function cookieOptions() {
   };
 }
 
-export function signAdminToken(adminId) {
-  return jwt.sign({ sub: String(adminId) }, process.env.ADMIN_AUTH_SECRET, {
+export function signAdminToken(adminId, tokenVersion = 0) {
+  return jwt.sign({ sub: String(adminId), tv: tokenVersion ?? 0 }, process.env.ADMIN_AUTH_SECRET, {
     algorithm: "HS256",
     expiresIn: "8h",
   });

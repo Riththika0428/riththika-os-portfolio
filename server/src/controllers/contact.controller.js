@@ -2,6 +2,7 @@ import { ContactMessage } from "../models/ContactMessage.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { messageQuerySchema } from "../validators/contact.validator.js";
+import { notifyNewMessage } from "../utils/mailer.js";
 
 const OBJECT_ID = /^[a-f\d]{24}$/i;
 const assertValidId = (id) => {
@@ -17,10 +18,11 @@ const SEARCH_FIELDS = ["name", "email", "subject", "message"];
 // POST /api/contact (body already validated by contactSchema)
 export const submitContactMessage = asyncHandler(async (req, res) => {
   const entry = await ContactMessage.create(req.body);
-
-  // No email-notification service configured yet — the message is
-  // safely persisted in MongoDB and survives a server restart.
   console.log("[contact] new message saved:", entry._id.toString());
+
+  // Email alert: fire-and-forget. The message is already safe in MongoDB, so a mail
+  // problem never changes the visitor's response.
+  void notifyNewMessage(entry);
 
   res.status(201).json({ success: true, message: "Message received.", data: { id: entry._id } });
 });
