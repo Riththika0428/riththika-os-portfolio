@@ -4,7 +4,7 @@ export const SITE = {
   tagline: "A developer operating system.",
   description:
     "The personal portfolio of Riththika Baskaran, presented as a simulated developer operating system.",
-  url: "https://riththika-os.dev", // placeholder — update when deployed
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/+$/, ""), // set NEXT_PUBLIC_SITE_URL when deployed
    avatar: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/profile-image`,
 };
 

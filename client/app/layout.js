@@ -1,6 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE } from "@/lib/constants/site";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -8,8 +9,20 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Riththika OS",
-  description: "A developer operating system — the personal portfolio of Riththika Baskaran.",
+  metadataBase: new URL(SITE.url),
+  title: { default: "Riththika OS", template: "%s" },
+  description: SITE.description,
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    title: "Riththika Baskaran — Full Stack Developer",
+    description: SITE.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Riththika Baskaran — Full Stack Developer",
+    description: SITE.description,
+  },
 };
 
 export default function RootLayout({ children }) {
