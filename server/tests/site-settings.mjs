@@ -1,0 +1,45 @@
+process.env.ADMIN_AUTH_SECRET = "t".repeat(48);
+process.env.NODE_ENV = "test";
+const mongoose = (await import("mongoose")).default;
+const { default: Admin } = await import("../src/models/Admin.js");
+const { SiteSettings } = await import("../src/models/SiteSettings.js");
+const { createApp, API_ROUTES } = await import("../src/app.js");
+const { signAdminToken, COOKIE_NAME } = await import("../src/utils/authCookie.js");
+const { collectRoutes, findProblems } = await import("../src/scripts/auditRoutes.js");
+
+Admin.findById = async (id) => ({ _id: id });
+let doc = null;
+SiteSettings.findOne = async () => doc;
+SiteSettings.findOneAndUpdate = async (_q, { $set }) => (doc = { ...(doc ?? {}), ...$set });
+
+const app = createApp({ allowedOrigins: ["http://localhost:3000"] });
+const server = app.listen(0); const base = `http://localhost:${server.address().port}`;
+const cookie = `${COOKIE_NAME}=${signAdminToken({ _id: String(new mongoose.Types.ObjectId()) })}`;
+const H = { "Content-Type": "application/json", "X-Requested-With": "riththika-admin", Origin: "http://localhost:3000" };
+const put = (body, auth = true) => fetch(`${base}/api/site-settings`, { method: "PUT", headers: { ...H, ...(auth ? { Cookie: cookie } : {}) }, body: JSON.stringify(body) });
+let fails = 0; const ok = (n, c) => { console.log(c ? "PASS" : "FAIL", n); if (!c) fails++; };
+const good = { email: "me@site.dev", phone: "+94 77 123 4567", location: "Colombo", github: "https://github.com/riththi", linkedin: "https://www.linkedin.com/in/riththi", role: "Full Stack Developer", badge: "BIT Undergraduate", available: true, availabilityText: "Open to work" };
+
+let r = await fetch(`${base}/api/site-settings`); let j = await r.json();
+ok("GET is public and works with nothing saved", r.status === 200 && j.success);
+ok("nothing saved: no invented contact details", j.data.email === "" && j.data.phone === "" && j.data.github === "" && j.data.linkedin === "");
+ok("nothing saved: sidebar text keeps its current wording", j.data.role === "Full Stack Developer" && j.data.badge === "BIT Undergraduate" && j.data.available === true && j.data.availabilityText === "Available for opportunities" && j.data.location === "Sri Lanka");
+ok("PUT needs login", (await put(good, false)).status === 401);
+ok("PUT without the security header is blocked", (await fetch(`${base}/api/site-settings`, { method: "PUT", headers: { "Content-Type": "application/json", Cookie: cookie }, body: JSON.stringify(good) })).status === 403);
+ok("rejects a bad email", (await put({ ...good, email: "not-an-email" })).status === 400);
+ok("rejects letters in the phone", (await put({ ...good, phone: "call me" })).status === 400);
+ok("rejects javascript: as GitHub", (await put({ ...good, github: "javascript:alert(1)" })).status === 400);
+ok("rejects a GitHub value that is not a URL", (await put({ ...good, github: "github.com/me" })).status === 400);
+ok("rejects data: as LinkedIn", (await put({ ...good, linkedin: "data:text/html,x" })).status === 400);
+ok("rejects an empty role", (await put({ ...good, role: " " })).status === 400);
+ok("rejects non-boolean available", (await put({ ...good, available: "yes" })).status === 400);
+ok("rejects an over-long location", (await put({ ...good, location: "x".repeat(81) })).status === 400);
+r = await put({ ...good, evil: 1 }); j = await r.json();
+ok("accepts good values; unknown fields are ignored", r.status === 200 && doc.evil === undefined && j.data.email === "me@site.dev");
+r = await put({ ...good, email: "", phone: "", github: "", linkedin: "" }); j = await r.json();
+ok("empty values are allowed (the site then hides them)", r.status === 200 && j.data.email === "" && j.data.github === "");
+r = await put({ ...good, email: "  me@site.dev  ", github: " https://github.com/riththi " }); j = await r.json();
+ok("values are trimmed", j.data.email === "me@site.dev" && j.data.github === "https://github.com/riththi");
+ok("GET returns what was saved", (await (await fetch(`${base}/api/site-settings`)).json()).data.github === "https://github.com/riththi");
+ok("audit passes with the new route", findProblems(collectRoutes(API_ROUTES)).length === 0);
+server.close(); console.log(fails ? `\n${fails} FAILED` : "\nALL PASSED"); process.exit(fails ? 1 : 0);
