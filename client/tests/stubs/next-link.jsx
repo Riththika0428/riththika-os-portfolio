@@ -1,0 +1,1 @@
+export default function Link({ href, children, ...p }) { return <a href={href} {...p}>{children}</a>; }

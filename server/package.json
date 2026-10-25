@@ -10,7 +10,7 @@
     "reset-admin": "node src/scripts/resetAdmin.js",
     "create-admin": "node src/scripts/createAdmin.js",
     "set-db": "node src/scripts/setDatabase.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node tests/run-all.mjs",
     "audit": "node src/scripts/auditRoutes.js"
   },
   "keywords": [],
@@ -33,6 +33,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "mingo": "^7.2.5",
     "nodemon": "^3.1.14"
   }
 }
