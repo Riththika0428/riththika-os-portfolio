@@ -9,6 +9,7 @@ const certificationSchema = new mongoose.Schema(
     credentialId: { type: String, default: "" },
     credentialUrl: { type: String, default: "" },
     description: { type: String, default: "" },
+    image: { type: String, default: "" }, // "/api/project-images/<id>" (uploaded), a /public path, or an http(s) URL
     skills: [String],
     order: { type: Number, default: 0 },
   },

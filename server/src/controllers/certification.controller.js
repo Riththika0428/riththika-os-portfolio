@@ -1,6 +1,7 @@
 import { Certification } from "../models/Certification.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { httpError } from "../utils/httpError.js";
+import { removeImagesIfUnused } from "../utils/projectImages.js";
 
 const OBJECT_ID = /^[a-f\d]{24}$/i;
 const assertValidId = (id) => {
@@ -26,8 +27,11 @@ export const updateCertification = asyncHandler(async (req, res) => {
   assertValidId(req.params.id);
   const certification = await Certification.findById(req.params.id);
   if (!certification) throw httpError(404, "Certification not found");
+  const previousImage = certification.image;
   certification.set(req.body);
   await certification.save();
+  // The image was replaced or cleared: delete the old uploaded file (a no-op for /public paths and external URLs).
+  if (previousImage && previousImage !== certification.image) await removeImagesIfUnused([previousImage]);
   res.json({ success: true, data: { certification } });
 });
 
@@ -35,6 +39,7 @@ export const deleteCertification = asyncHandler(async (req, res) => {
   assertValidId(req.params.id);
   const certification = await Certification.findByIdAndDelete(req.params.id);
   if (!certification) throw httpError(404, "Certification not found");
+  if (certification.image) await removeImagesIfUnused([certification.image]);
   res.json({ success: true, data: { id: certification._id } });
 });
 

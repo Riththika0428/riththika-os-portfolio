@@ -11,6 +11,15 @@ const httpUrl = z
   .refine((v) => v === "" || /^https?:\/\/\S+$/i.test(v), "must be a full http(s) URL")
   .default("");
 
+// A site path starts with one "/" ("//host/x" would point at another site).
+const isSitePath = (v) => v.startsWith("/") && !v.startsWith("//");
+const imageRef = z
+  .string()
+  .trim()
+  .max(500)
+  .refine((v) => v === "" || isSitePath(v) || /^https?:\/\/\S+$/i.test(v), "must be a /public path or http(s) URL")
+  .default("");
+
 // Drop duplicates (case-insensitive), keep the first spelling.
 const dedupe = (list) => {
   const seen = new Set();
@@ -35,6 +44,7 @@ export const certificationSchema = z
     credentialId: text(120).default(""),
     credentialUrl: httpUrl,
     description: text(600).default(""),
+    image: imageRef,
     skills: z.array(text(60).min(1)).max(20).default([]).transform(dedupe),
   })
   .refine((v) => !v.expiryDate || v.expiryDate >= v.issueDate, {
