@@ -13,6 +13,7 @@
     "test": "node tests/run-all.mjs",
     "audit": "node src/scripts/auditRoutes.js"
   },
+  "engines": { "node": ">=20" },
   "keywords": [],
   "author": "",
   "license": "ISC",
