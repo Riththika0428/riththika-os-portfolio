@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL || "https://riththika-os-portfolio-5xwl-ps9g23yvd.vercel.app/";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://riththika-os-portfolio-vyx4-g3qibnc5w.vercel.app/";
 
 async function request(path, options) {
   try {
