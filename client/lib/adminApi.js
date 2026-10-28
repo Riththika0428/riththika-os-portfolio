@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL || "https://riththika-os-portfolio-5xwl-ps9g23yvd.vercel.app/";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "https://riththika-os-portfolio.vercel.app/admin/login";
 
 // Credentialed requests so the HTTP-only cookie is sent and received.
 // Never throws; always returns { data, error, status }.
