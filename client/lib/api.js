@@ -27,18 +27,17 @@
 // }
 
 
-const BASE = (
+const API_ORIGIN = new URL(
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://riththika-os-portfolio-vyx4.vercel.app"
-).replace(/\/+$/, "");
+    "https://riththika-os-portfolio-vyx4.vercel.app"
+).origin;
 
 function buildUrl(path) {
-  const cleanPath = String(path).replace(/^\/+/, "");
-  const apiPath = cleanPath.startsWith("api/")
-    ? cleanPath
-    : `api/${cleanPath}`;
+  const cleanPath = String(path)
+    .replace(/^\/+/, "")
+    .replace(/^api\/+/, "");
 
-  return `${BASE}/${apiPath}`;
+  return `${API_ORIGIN}/api/${cleanPath}`;
 }
 
 async function request(path, options = {}) {
