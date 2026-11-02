@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { ROUTES, SITE } from "@/lib/constants/site";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 function currentLabel(pathname) {
   const match = ROUTES.find((r) => r.path === pathname);
@@ -29,6 +30,7 @@ export default function TopBar({ onMenuClick }) {
           <span className="text-text-heading">{currentLabel(pathname)}</span>
         </span>
       </div>
+      <ThemeToggle />
     </header>
   );
 }

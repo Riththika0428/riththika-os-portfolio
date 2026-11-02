@@ -57,10 +57,95 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Theme: dark is the default (the @theme values above). Light mode     */
+/* re-points the same tokens, so every page follows without edits.      */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: dark;
+  --scroll-thumb: #1e2a44;
+  --scroll-thumb-hover: #334155;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --scroll-thumb: #cbd5e1;
+  --scroll-thumb-hover: #94a3b8;
+
+  --color-bg: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-elevated: #f1f5f9;
+  --color-subtle: #e2e8f0;
+  --color-chip: #eef2f7;
+  --color-chip2: #e2e8f0;
+  --color-border: #cbd5e1;
+
+  --color-text-heading: #0f172a;
+  --color-text-bright: #0f172a;
+  --color-text-body: #334155;
+  --color-text-muted: #64748b;
+  --color-text-disabled: #94a3b8;
+
+  /* accents darkened a step so they stay readable on white */
+  --color-purple: #7c3aed;
+  --color-purple-dim: #6d28d9;
+  --color-blue: #2563eb;
+  --color-blue-dim: #1d4ed8;
+  --color-blue-soft: #1d4ed8;
+  --color-cyan: #0891b2;
+  --color-cyan-dim: #0e7490;
+  --color-cyan-soft: #0e7490;
+  --color-cyan-ink: #cffafe;
+  --color-mint: #16a34a;
+  --color-mint-dim: #15803d;
+  --color-mint-pale: #166534;
+  --color-orange: #d97706;
+  --color-danger: #dc2626;
+
+  --shadow-banner: 0px 1px 3px 0px rgba(15, 23, 42, 0.12), 0px 1px 2px -1px rgba(15, 23, 42, 0.12);
+  --shadow-card: 0px 4px 12px -2px rgba(15, 23, 42, 0.12), 0px 2px 4px -2px rgba(15, 23, 42, 0.08);
+  --shadow-window: 0px 10px 25px -5px rgba(15, 23, 42, 0.15), 0px 4px 8px -4px rgba(15, 23, 42, 0.1);
+  --shadow-terminal: 0px 15px 35px -10px rgba(15, 23, 42, 0.2);
+  --shadow-glow-cyan: 0px 0px 12px 0px rgba(8, 145, 178, 0.3);
+  --shadow-glow-mint: 0px 0px 12px 0px rgba(22, 163, 74, 0.3);
+  --shadow-glow-purple: 0px 0px 12px 0px rgba(124, 58, 237, 0.3);
+  --shadow-glow-blue: 0px 0px 12px 0px rgba(37, 99, 235, 0.3);
+
+  /* The admin pages use Tailwind's own slate/red/emerald scales (made for a
+     dark background). Flip those scales so they read correctly on light. */
+  --color-slate-50: #020617;
+  --color-slate-100: #0f172a;
+  --color-slate-200: #1e293b;
+  --color-slate-300: #334155;
+  --color-slate-400: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-600: #94a3b8;
+  --color-slate-700: #cbd5e1;
+  --color-slate-800: #e2e8f0;
+  --color-slate-900: #ffffff;
+  --color-slate-950: #f1f5f9;
+
+  --color-red-200: #991b1b;
+  --color-red-300: #b91c1c;
+  --color-red-400: #dc2626;
+  --color-red-800: #f87171;
+  --color-red-900: #fca5a5;
+  --color-red-950: #fef2f2;
+
+  --color-emerald-200: #065f46;
+  --color-emerald-900: #a7f3d0;
+  --color-emerald-950: #ecfdf5;
+
+  --color-amber-300: #b45309;
+  --color-indigo-300: #4338ca;
+  --color-purple-300: #6d28d9;
+}
+
 /* Thin, low-contrast scrollbars to match the terminal/OS aesthetic */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1e2a44 transparent;
+  scrollbar-color: var(--scroll-thumb) transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
@@ -70,11 +155,11 @@
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #1e2a44;
+  background-color: var(--scroll-thumb);
   border-radius: 9999px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #334155;
+  background-color: var(--scroll-thumb-hover);
 }
 
 /* Gradient text utility — purple -> blue -> cyan, used for the hero name highlight */

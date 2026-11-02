@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/constants/site";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -27,8 +28,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${jetbrainsMono.variable}`}>
-      <body>{children}</body>
-    </html>
+    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${GeistSans.variable} ${jetbrainsMono.variable}`}>
+  <head>
+    <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+  </head>
+  <body>{children}</body>
+</html>
   );
 }
