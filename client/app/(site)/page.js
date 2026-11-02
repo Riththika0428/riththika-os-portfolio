@@ -1,6 +1,6 @@
 import HeroTerminal from "@/components/sections/home/HeroTerminal";
 import HeroImagePanel from "@/components/sections/home/HeroImagePanel";
-import QuickSkills from "@/components/sections/home/QuickSkills";
+import ServicesGrid from "@/components/sections/home/ServicesGrid";
 import BottomTerminal from "@/components/sections/home/BottomTerminal";
 import { getHome } from "@/lib/content";
 
@@ -22,7 +22,10 @@ export default async function HomePage() {
         )}
       </div>
 
-      <QuickSkills items={home?.highlights} />
+      {/* Services */}
+      <ServicesGrid items={home?.highlights} />
+
+      {/* Bottom terminal */}
       <BottomTerminal message={home?.closingMessage} />
     </div>
   );

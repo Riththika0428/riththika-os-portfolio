@@ -141,7 +141,7 @@ export default function AdminHomePage() {
       </section>
 
       <section className={card} aria-labelledby="home-cards">
-        <h2 id="home-cards" className="text-lg font-medium">Highlight cards</h2>
+        <h2 id="home-cards" className="text-lg font-medium">Services</h2>
         <p className="text-sm text-slate-400">The small cards under the hero (up to 8). Remove them all to hide the row.</p>
         <HighlightsEditor value={form.highlights} onChange={(highlights) => setForm((f) => ({ ...f, highlights }))} errors={errors} />
       </section>
