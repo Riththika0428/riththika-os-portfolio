@@ -39,7 +39,7 @@ export default function ProjectsGrid({ projects, categories = ["All"] }) {
 
       {filtered.length > 0 ? (
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="popLayout" initial={false}>
             {filtered.map((project) => (
               <motion.div
                 key={project.slug}

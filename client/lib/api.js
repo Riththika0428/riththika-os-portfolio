@@ -67,13 +67,13 @@ async function request(path, options = {}) {
   }
 }
 
-export function apiGet(path, { revalidate = 0 } = {}) {
-  return request(
-    path,
-    revalidate
-      ? { next: { revalidate } }
-      : { cache: "no-store" }
-  );
+// One quick retry on a network failure or a 5xx, so a cold-starting API doesn't show an error page.
+export async function apiGet(path, { revalidate = 0 } = {}) {
+  const options = revalidate ? { next: { revalidate } } : { cache: "no-store" };
+  const first = await request(path, options);
+  if (first.status !== 0 && first.status < 500) return first;
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  return request(path, options);
 }
 
 export function apiPost(path, body) {
