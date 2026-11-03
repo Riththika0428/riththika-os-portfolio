@@ -15,7 +15,7 @@ export default async function EducationPage() {
   const [education, certifications, learning] = await Promise.all([getEducation(), getCertifications(), getLearning()]);
 
   return (
-    <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
+    <div className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
       <div className="flex flex-col gap-3">
         <PageHeader index="04" label="EDUCATION" title="My Education" />
         <p className="text-text-body text-base max-w-xl">
@@ -23,7 +23,7 @@ export default async function EducationPage() {
         </p>
       </div>
 
-      <TerminalWindow title="education.txt" shadow="terminal" bodyClassName="p-6 lg:p-8">
+      <TerminalWindow title="education.txt" shadow="terminal" bodyClassName="p-4 sm:p-6 lg:p-8">
         <div className="flex flex-col gap-8">
           {education.error || !education.data ? (
             <DataError what="education" />

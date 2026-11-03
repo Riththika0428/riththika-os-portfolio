@@ -25,7 +25,7 @@ export default function IntroTerminal() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="lg:col-span-7 p-6 lg:p-8 flex flex-col gap-4 lg:border-r border-border"
+          className="lg:col-span-7 p-4 sm:p-6 lg:p-8 flex flex-col gap-4 lg:border-r border-border"
         >
           <p className="font-mono text-xs text-text-muted">
             <span className="text-cyan">$</span> cat about-me.txt
@@ -51,7 +51,7 @@ export default function IntroTerminal() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="lg:col-span-5 p-6 lg:p-8 flex flex-col gap-4 bg-elevated/40"
+          className="lg:col-span-5 p-4 sm:p-6 lg:p-8 flex flex-col gap-4 bg-elevated/40"
         >
           <motion.p
             variants={item}

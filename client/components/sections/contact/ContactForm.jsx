@@ -67,14 +67,14 @@ export default function ContactForm() {
           <textarea required rows={5} maxLength={5000} value={values.message} onChange={handleChange("message")} placeholder="Write your message or project requirements here..." className={`${inputClasses} resize-none`} />
         </label>
 
-        <div className="flex items-center justify-between gap-4 pt-1">
+        <div className="flex flex-col-reverse items-stretch sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 pt-1">
           <span role={status === "error" ? "alert" : "status"} className={`text-xs ${noteColor}`}>
             {note}
           </span>
           <button
             type="submit"
             disabled={status === "sending"}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple to-blue text-white text-sm font-medium px-5 py-2.5 rounded-control shadow-glow-purple hover:opacity-90 transition-opacity disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple to-blue text-white text-sm font-medium px-5 py-2.5 rounded-control shadow-glow-purple hover:opacity-90 transition-opacity disabled:opacity-60"
           >
             {status === "sending" ? "Sending…" : "Send Message"}
             <ArrowUpRight className="size-4" strokeWidth={2} />

@@ -1,7 +1,7 @@
 // Shown instantly while a public page fetches its data from the API.
 export default function Loading() {
   return (
-    <div role="status" aria-live="polite" className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
+    <div role="status" aria-live="polite" className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
       <span className="sr-only">Loading…</span>
       <div className="flex flex-col gap-3" aria-hidden="true">
         <div className="h-3 w-28 rounded bg-white/10 animate-pulse" />

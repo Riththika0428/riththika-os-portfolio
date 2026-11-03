@@ -11,7 +11,7 @@ export default function ContactInfoPanel({ settings = DEFAULT_SITE_SETTINGS }) {
   const methods = contactMethods(settings);
 
   return (
-    <GlowCard className="p-6 flex flex-col gap-5 h-full">
+    <GlowCard className="p-4 sm:p-6 flex flex-col gap-5 h-full">
       <SectionHeader title="Contact Info" comment="DIRECT_CHANNELS" />
 
       {methods.length === 0 && (
@@ -30,7 +30,7 @@ export default function ContactInfoPanel({ settings = DEFAULT_SITE_SETTINGS }) {
                 <span className="text-text-muted text-[11px] font-mono uppercase tracking-[0.5px]">
                   {method.label}
                 </span>
-                <span className="text-text-heading text-sm truncate">{method.value}</span>
+                <span className="text-text-heading text-sm [overflow-wrap:anywhere]">{method.value}</span>
               </div>
               {method.href && (
                 <ArrowUpRight
@@ -47,12 +47,12 @@ export default function ContactInfoPanel({ settings = DEFAULT_SITE_SETTINGS }) {
               href={method.href}
               target={method.href.startsWith("http") ? "_blank" : undefined}
               rel={method.href.startsWith("http") ? "noreferrer" : undefined}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-control hover:bg-elevated transition-colors"
+              className="flex items-center gap-3 px-2 sm:px-3 py-2.5 rounded-control hover:bg-elevated transition-colors"
             >
               {content}
             </a>
           ) : (
-            <div key={method.key} className="flex items-center gap-3 px-3 py-2.5">
+            <div key={method.key} className="flex items-center gap-3 px-2 sm:px-3 py-2.5">
               {content}
             </div>
           );

@@ -33,7 +33,7 @@ export default function ResumeDocument({ resume, education = [], projects = [] }
   ].filter(Boolean);
 
   return (
-    <div className="bg-white text-neutral-900 rounded-md shadow-2xl w-full max-w-[850px] mx-auto p-8 sm:p-10 flex flex-col gap-8">
+    <div className="bg-white text-neutral-900 rounded-md shadow-2xl w-full max-w-[850px] mx-auto p-5 sm:p-10 flex flex-col gap-8">
       {/* Header */}
       <div className="flex flex-col gap-1 pb-4 border-b-2 border-neutral-200">
         <div className="flex flex-wrap items-baseline justify-between gap-2">

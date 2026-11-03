@@ -50,7 +50,7 @@ function MilestoneCard({ item, align, fromSide }) {
 
 export default function JourneyTimeline({ journey = [] }) {
   return (
-    <GlowCard className="p-6 lg:p-8 flex flex-col gap-8">
+    <GlowCard className="p-4 sm:p-6 lg:p-8 flex flex-col gap-8">
       <SectionHeader title="Developer Journey" comment="MILESTONES_LOG" meta={`${journey.length} ENTRIES`} />
 
       <div className="relative">

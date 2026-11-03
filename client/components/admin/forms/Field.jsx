@@ -1,5 +1,5 @@
 export const inputCls =
-  "w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-indigo-500 disabled:opacity-60";
+  "w-full min-w-0 rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-indigo-500 disabled:opacity-60";
 
 export default function Field({ label, htmlFor, hint, error, required, children }) {
   const labelCls = "text-sm text-slate-300";

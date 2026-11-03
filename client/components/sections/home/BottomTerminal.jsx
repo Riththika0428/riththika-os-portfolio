@@ -9,7 +9,7 @@ export default function BottomTerminal({ message = CLOSING_MESSAGE }) {
     <TerminalWindow
       title="›_ Terminal"
       shadow="terminal"
-      bodyClassName="p-6 lg:p-8 font-mono text-sm"
+      bodyClassName="p-4 sm:p-6 lg:p-8 font-mono text-sm"
     >
       <div className="flex flex-col gap-3">
         <p>

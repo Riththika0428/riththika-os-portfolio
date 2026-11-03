@@ -16,7 +16,7 @@ export default async function ContactPage() {
   const settings = normalizeSettings(data);
 
   return (
-    <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
+    <div className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
       <div className="flex flex-col gap-3">
         <PageHeader index="06" label="CONTACT" title="Let's Connect" />
         <p className="text-text-body text-base max-w-xl">
@@ -26,10 +26,10 @@ export default async function ContactPage() {
 
       <TerminalWindow title="connect --me" shadow="terminal" bodyClassName="p-0">
         <div className="grid grid-cols-1 lg:grid-cols-12">
-          <div className="lg:col-span-5 p-6 lg:p-8 lg:border-r border-border">
+          <div className="lg:col-span-5 p-3 sm:p-6 lg:p-8 lg:border-r border-border">
             <ContactInfoPanel settings={settings} />
           </div>
-          <div className="lg:col-span-7 p-6 lg:p-8">
+          <div className="lg:col-span-7 p-3 sm:p-6 lg:p-8">
             <ContactForm />
           </div>
         </div>

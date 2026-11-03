@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 
 const btn =
-  "inline-flex size-7 items-center justify-center rounded border border-slate-700 text-slate-400 hover:bg-slate-800 disabled:opacity-30 disabled:hover:bg-transparent";
+  "inline-flex size-9 sm:size-7 items-center justify-center rounded border border-slate-700 text-slate-400 hover:bg-slate-800 disabled:opacity-30 disabled:hover:bg-transparent";
 
 export default function RowControls({ index, count, onMove, onRemove, label }) {
   return (

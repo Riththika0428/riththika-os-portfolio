@@ -218,7 +218,7 @@ export default function AdminResumePage() {
         {form.skillGroups.length === 0 && <p className="text-sm text-slate-500">No skill groups yet.</p>}
         {form.skillGroups.map((g, i) => (
           <div key={g.uid} className="flex items-start gap-2 rounded-lg border border-slate-800 p-3">
-            <div className="flex flex-1 flex-col gap-3">
+            <div className="flex min-w-0 flex-1 flex-col gap-3">
               <Field label="Group name" htmlFor={`sg-label-${g.uid}`}>
                 <input id={`sg-label-${g.uid}`} maxLength={60} value={g.label} onChange={(e) => patchRow("skillGroups", g.uid, { label: e.target.value })} className={inputCls} />
               </Field>
@@ -250,7 +250,7 @@ export default function AdminResumePage() {
         </div>
         {form.achievements.map((a, i) => (
           <div key={a.uid} className="flex items-start gap-2">
-            <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-[1fr_2fr]">
+            <div className="grid min-w-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[1fr_2fr]">
               <input aria-label={`Achievement ${i + 1} title`} maxLength={120} placeholder="Title" value={a.title} onChange={(e) => patchRow("achievements", a.uid, { title: e.target.value })} className={inputCls} />
               <input aria-label={`Achievement ${i + 1} description`} maxLength={300} placeholder="Description (optional)" value={a.description} onChange={(e) => patchRow("achievements", a.uid, { description: e.target.value })} className={inputCls} />
             </div>

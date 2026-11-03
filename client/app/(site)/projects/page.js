@@ -12,7 +12,7 @@ export default async function ProjectsPage() {
   const { data, error } = await getProjects();
 
   return (
-    <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
+    <div className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
       <div className="flex flex-col gap-3">
         <PageHeader index="02" label="PROJECTS" title="My Projects" />
         <p className="text-text-body text-base max-w-xl">

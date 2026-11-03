@@ -9,7 +9,7 @@ export default function HeroTerminal({
   tagline = "I build clean, responsive and user-focused web applications that solve real-world problems.",
 }) {
   return (
-    <TerminalWindow title="welcome.sh" shadow="terminal" bodyClassName="p-10 lg:p-12">
+    <TerminalWindow title="welcome.sh" shadow="terminal" bodyClassName="p-6 sm:p-10 lg:p-12">
       <div className="flex flex-col gap-8">
         <p className="font-mono text-sm text-mint">
           <span className="text-cyan">riththika</span>

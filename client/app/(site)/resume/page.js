@@ -23,12 +23,12 @@ export default async function ResumePage() {
   }
 
   return (
-    <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
+    <div className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
       <PageHeader index="05" label="RESUME" title="My Resume" />
 
       <TerminalWindow title="resume.pdf" shadow="terminal" bodyClassName="p-0">
         <ResumeToolbar pdfUrl={ok ? resumeRes.data.pdfUrl : ""} />
-        <div className="bg-bg p-6 lg:p-10">
+        <div className="bg-bg p-3 sm:p-6 lg:p-10">
           {ok ? (
             <ResumeDocument resume={resumeRes.data} education={educationRes.data.entries ?? []} projects={projects} />
           ) : (

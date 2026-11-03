@@ -4,8 +4,8 @@
  */
 export default function SectionHeader({ title, comment, meta }) {
   return (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 w-full">
+      <div className="flex flex-wrap items-center gap-x-2">
         <span className="text-text-bright text-[13px] font-bold leading-5">{title}</span>
         {comment && (
           <span className="text-text-muted text-[11px] tracking-[0.66px] leading-[14px]">

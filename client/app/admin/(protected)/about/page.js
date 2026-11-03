@@ -181,7 +181,7 @@ export default function AdminAboutPage() {
         {form.profileFields.length === 0 && <p className="text-sm text-slate-500">No profile details yet.</p>}
         {form.profileFields.map((f, i) => (
           <div key={f.uid} className="flex items-start gap-2">
-            <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-[1fr_2fr]">
+            <div className="grid min-w-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[1fr_2fr]">
               <input aria-label={`Field ${i + 1} label`} maxLength={40} placeholder="Label" value={f.label}
                 onChange={(e) => patchRow("profileFields", f.uid, { label: e.target.value })} className={inputCls} />
               <input aria-label={`Field ${i + 1} value`} maxLength={200} placeholder="Value" value={f.value}
@@ -206,7 +206,7 @@ export default function AdminAboutPage() {
         {form.journey.length === 0 && <p className="text-sm text-slate-500">No milestones yet.</p>}
         {form.journey.map((j, i) => (
           <div key={j.uid} className="flex items-start gap-2 rounded-lg border border-slate-800 p-3">
-            <div className="flex flex-1 flex-col gap-3">
+            <div className="flex min-w-0 flex-1 flex-col gap-3">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-[8rem_1fr]">
                 <Field label="Year / label" htmlFor={`j-year-${j.uid}`}>
                   <input id={`j-year-${j.uid}`} maxLength={20} placeholder="2026" value={j.year}

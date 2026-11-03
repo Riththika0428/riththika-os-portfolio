@@ -55,6 +55,11 @@
   body {
     @apply bg-bg text-text-body font-sans antialiased;
   }
+
+  /* Long unbroken words (titles, URLs, emails) wrap instead of pushing the page wider than a phone screen. */
+  h1, h2, h3, h4, h5, p, li, dd, dt, blockquote {
+    overflow-wrap: anywhere;
+  }
 }
 
 /* ------------------------------------------------------------------ */

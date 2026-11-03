@@ -30,12 +30,12 @@ export default function TerminalWindow({
           <span className="size-2.5 rounded-full bg-mint" aria-hidden="true" />
         </div>
         {title && (
-          <div className="flex gap-2 items-center text-text-body text-[13px] tracking-tight">
+          <div className="flex gap-2 items-center min-w-0 text-text-body text-[13px] tracking-tight">
             {titleIcon}
-            <span>{title}</span>
+            <span className="truncate">{title}</span>
           </div>
         )}
-        <div className="flex items-center gap-2">{right}</div>
+        <div className="flex items-center gap-2 shrink-0">{right}</div>
       </div>
       <div className={clsx("p-6", bodyClassName)}>{children}</div>
     </div>

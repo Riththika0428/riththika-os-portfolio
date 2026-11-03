@@ -13,13 +13,13 @@ export default async function SkillsPage() {
   const { data, error } = await getSkills();
 
   return (
-    <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
+    <div className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1280px] mx-auto">
       <PageHeader index="03" label="SKILLS" title="My Skills" />
 
       {error || !data ? (
         <DataError what="skills" />
       ) : (
-        <TerminalWindow title="skills --all" shadow="terminal" bodyClassName="p-6 lg:p-8">
+        <TerminalWindow title="skills --all" shadow="terminal" bodyClassName="p-4 sm:p-6 lg:p-8">
           <p className="font-mono text-xs text-text-muted mb-6">
             <span className="text-cyan">riththika@portfolio</span>
             <span className="text-text-muted">:~$</span> skills --all

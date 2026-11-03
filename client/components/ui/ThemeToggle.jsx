@@ -29,7 +29,7 @@ export default function ThemeToggle({ floating = false, className = "" }) {
       aria-label={label}
       title={label}
       className={[
-        "inline-flex items-center justify-center size-9 rounded-control border border-border bg-card text-text-body hover:text-text-heading hover:border-purple/60 transition-colors",
+        "inline-flex items-center justify-center size-9 shrink-0 rounded-control border border-border bg-card text-text-body hover:text-text-heading hover:border-purple/60 transition-colors",
         floating ? "fixed bottom-20 right-4 z-40 shadow-card" : "",
         className,
       ].join(" ").trim()}

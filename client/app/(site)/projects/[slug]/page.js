@@ -24,7 +24,7 @@ export default async function ProjectCaseStudyPage({ params }) {
   if (status === 404) notFound();
   if (error || !data?.project) {
     return (
-      <div className="p-6 lg:p-10 max-w-[1000px] mx-auto">
+      <div className="p-4 sm:p-6 lg:p-10 max-w-[1000px] mx-auto">
         <DataError what="this project" />
       </div>
     );
@@ -33,7 +33,7 @@ export default async function ProjectCaseStudyPage({ params }) {
   const project = normalizeProject(data.project);
 
   return (
-    <div className="p-6 lg:p-10 flex flex-col gap-8 max-w-[1000px] mx-auto">
+    <div className="p-4 sm:p-6 lg:p-10 flex flex-col gap-8 max-w-[1000px] mx-auto">
       <CaseStudyHero project={project} />
       <TelemetryRibbon metrics={project.caseStudy.metrics} />
       <BentoOverview project={project} />
